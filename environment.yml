@@ -1,0 +1,6 @@
+name: dssc-mlops
+channels:
+  - defaults
+dependencies:
+  - jupyter
+prefix: /home/mathias/anaconda3/envs/dssc-mlops
