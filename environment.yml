@@ -3,6 +3,7 @@ channels:
   - defaults
 dependencies:
   - jupyter
+  - pandas
   - pip
   - pip:
       - spotipy
