@@ -4,6 +4,7 @@ channels:
 dependencies:
   - jupyter
   - pandas
+  - pytorch
   - pip
   - pip:
       - spotipy
