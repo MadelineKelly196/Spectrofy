@@ -1,10 +1,10 @@
 name: dssc-mlops
-channels:
-  - defaults
 dependencies:
   - jupyter
   - pandas
-  - pytorch
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - pytorch::cpuonly
   - pip
   - pip:
       - spotipy
