@@ -2,6 +2,7 @@ name: dssc-mlops
 dependencies:
   - jupyter
   - pandas
+  - matplotlib
   - pytorch::pytorch
   - pytorch::torchvision
   - pytorch::cpuonly
