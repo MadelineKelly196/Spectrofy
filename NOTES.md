@@ -1,3 +1,5 @@
+## conda
+
 * Exporting environment:
   ```
   conda env export --from-history > environment.yml
@@ -10,3 +12,9 @@
   ```
   * [Then](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#using-pip-in-an-environment) `pip install spotipy`, etc. (only if you forgot to add pip packages)
     * As a rule of thumb, we install with `pip` all the packages that are not available with `conda` or are only available through the `conda-forge` channel (which makes the environment pretty slow to solve). If at some point this approach breaks the environment, either add `conda-forge` and install most of the packages with `conda` or avoid `conda-forge` and install most of the packages with `pip` (not the recommended way for some scientific packages)
+
+## Git LFS
+
+1. Install with eg. `sudo apt install git-lfs` or see instructions on [website](https://git-lfs.com/)
+2. Set it up with `git lfs install` (just once)
+3. File to track are in `.gitattributes` (add new ones with eg. `git lfs track "*.mp3"` and then push it)
