@@ -17,4 +17,4 @@
 
 1. Install with eg. `sudo apt install git-lfs` or see instructions on [website](https://git-lfs.com/)
 2. Set it up with `git lfs install` (just once)
-3. File to track are in `.gitattributes` (add new ones with eg. `git lfs track "*.mp3"` and then push it)
+3. That's it (PNG were already added to `.gitattributes` with `git lfs track "*.png"` and MP3 were ignored to save storage space)
