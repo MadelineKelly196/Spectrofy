@@ -15,7 +15,6 @@
 
 ## Git LFS
 
-1. Install with eg. `sudo apt install git-lfs` or see instructions on [website](https://git-lfs.com/)
-2. Set it up with `git lfs install` (just once)
+1. Install with eg. `sudo apt install git-lfs` or see instructions for your system on [website](https://git-lfs.com/)
+2. Set it up with `git lfs install` (to download LFS files when cloning) or with `git lfs install --skip-smudge` (to not download them)
 3. That's it. PNG were already added to `.gitattributes` with `git lfs track "*.png"` (just push them as usual) and MP3 were ignored to save storage space
-4. When you clone ... TBD
