@@ -60,7 +60,7 @@ git rebase --continue
 
 When the rebase is completed successfully then:
 ```
-git push
+git push --force
 ```
 
 Now, a pull request much be made on GitHub.
