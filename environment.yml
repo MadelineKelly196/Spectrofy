@@ -1,4 +1,4 @@
-name: dssc-mlops
+name: spectrofy
 dependencies:
   - jupyter
   - pandas
