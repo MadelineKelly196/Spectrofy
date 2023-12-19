@@ -1,4 +1,5 @@
 import os
+from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import Dataset
 from PIL import Image
 import pandas as pd
@@ -11,15 +12,20 @@ class SpectrogramsDataset(Dataset):
         self.target = target
         self.transform = transform
 
+        #encode labels
+        if target=='genre':
+            encoder = LabelEncoder()
+            self.features[target] = encoder.fit_transform(self.features[target])
+            self.classes = encoder.classes_ #as torchvision.datasets.ImageFolder
+
     def __len__(self):
         return len(self.features)
 
     def __getitem__(self, i):
         row = self.features.iloc[i]
         spec_path = os.path.join(self.spec_dir, f"{row['id']}.png")
-        spec = Image.open(spec_path) #if ResourceWarning see torchvision.datasets.ImageFolder
-        spec = spec.convert('RGB') #as torchvision.datasets.ImageFolder
+        with Image.open(spec_path) as im:
+            spec = im.convert('RGB') #as torchvision.datasets.ImageFolder
         if self.transform:
             spec = self.transform(spec)
-        label = row[self.target] #TODO if target=='genre' return class index instead (create self.classes as in ImageFolder)
-        return spec, label
+        return spec, row[self.target]
