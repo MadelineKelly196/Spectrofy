@@ -1,0 +1,13 @@
+name: spectrofy
+dependencies:
+  - jupyter
+  - pandas
+  - matplotlib
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - pytorch::cpuonly
+  - pip
+  - pip:
+      - spotipy
+      - librosa
+      - streamlit
