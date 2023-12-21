@@ -10,6 +10,8 @@ def mp3_to_spec(path_or_file):
     S = librosa.feature.melspectrogram(y=y, sr=sr)
     S_dB = librosa.amplitude_to_db(S, ref=np.max)
 
+    #TODO resize it and check if >30s?
+
     #preprocess it
     fig, ax = plt.subplots(figsize=(4.32, 2.88)) #432x288 as GTZAN dataset
     librosa.display.specshow(S_dB, sr=sr, ax=ax)
@@ -17,3 +19,5 @@ def mp3_to_spec(path_or_file):
     plt.close() #TODO test if needed during data collection (eg with 30 images)
     with Image.frombuffer('RGBA', size, buffer) as im:
         return im.convert('RGB')
+
+    #TODO use this function in data_collection. sSave images with the PIL method. plt.savefig used it anyway
