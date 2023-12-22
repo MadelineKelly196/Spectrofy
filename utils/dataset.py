@@ -24,9 +24,8 @@ class SpectrogramsDataset(Dataset):
     def __getitem__(self, i):
         row = self.features.iloc[i]
         spec_path = os.path.join(self.spec_dir, f"{row['id']}.png")
-        with Image.open(spec_path) as im:
-            #TODO remove? (to centralize the conversion in mp3_to_spec, but dunno if enough. eg. if we change to grayscale. but the actual dataset is RGBA so needed now)
-            spec = im.convert('RGB') #as torchvision.datasets.ImageFolder
+        with Image.open(spec_path) as spec:
+            spec.load() #needed because image not accessed in other ways
         if self.transform:
             spec = self.transform(spec)
         return spec, row[self.target]
