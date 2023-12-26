@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 import pandas as pd
 
+
 class SpectrogramsDataset(Dataset):
 
     def __init__(self, spec_dir, features_path, target='genre', transform=None):

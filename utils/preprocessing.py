@@ -1,7 +1,9 @@
+from torchvision import transforms
 import matplotlib.pyplot as plt
 from PIL import Image
 import numpy as np
 import librosa
+
 
 def audio_to_spec(path_or_file):
 
@@ -23,3 +25,8 @@ def audio_to_spec(path_or_file):
     plt.close(fig) #to save memory
     with Image.frombuffer('RGBA', size, buffer) as spec:
         return spec.convert('RGB')
+
+
+transform = transforms.Compose([
+    transforms.Resize([224, 224]), #HxW
+    transforms.ToTensor()])
