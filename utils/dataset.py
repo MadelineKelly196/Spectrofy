@@ -4,13 +4,14 @@ from torch.utils.data import Dataset
 from PIL import Image
 import pandas as pd
 
+
 class SpectrogramsDataset(Dataset):
 
-    def __init__(self, spec_dir, features_path, target='genre', transform=None):
+    def __init__(self, spec_dir, features_path, transform=None, target='genre'):
         self.spec_dir = spec_dir
         self.features = pd.read_csv(features_path)
-        self.target = target
         self.transform = transform
+        self.target = target
 
         #encode labels
         if target=='genre':
