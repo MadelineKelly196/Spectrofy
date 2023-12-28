@@ -3,13 +3,14 @@ from sklearn.preprocessing import LabelEncoder
 from torch.utils.data import Dataset
 from PIL import Image
 import pandas as pd
+import numpy as np
 
 
 class SpectrogramsDataset(Dataset):
 
     def __init__(self, spec_dir, features_path, transform=None, target='genre'):
         self.spec_dir = spec_dir
-        self.features = pd.read_csv(features_path)
+        self.features = pd.read_csv(features_path, dtype={'danceability': np.float32}) #PyTorch uses float
         self.transform = transform
         self.target = target
 
