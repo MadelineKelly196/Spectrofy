@@ -1,8 +1,23 @@
 import torch.nn.functional as F
+from torchvision import models
 from torch import nn
 
 
 class DanceabilityModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.base_arch = models.shufflenet_v2_x0_5() #https://pytorch.org/vision/stable/models.html
+        self.fc = nn.Linear(1000, 1)
+
+    def forward(self, x):
+        if len(x.shape) == 3:
+            x = x.unsqueeze(dim=0)
+        x = F.relu(self.base_arch(x))
+        x = F.sigmoid(self.fc(x))
+        return x.squeeze(dim=-1)
+
+
+class DanceabilityModelOld(nn.Module): #TODO delete if useless
     def __init__(self, channels, height, width):
         super().__init__()
         self.conv1 = nn.Conv2d(channels, 8, 5, padding='same')
@@ -14,9 +29,11 @@ class DanceabilityModel(nn.Module):
         self.fc3 = nn.Linear(32, 1)
 
     def forward(self, x):
+        if len(x.shape) == 3:
+            x = x.unsqueeze(dim=0)
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
-        x = x.flatten(start_dim=-3) #no reshape() to work also without batch dim
+        x = x.reshape(x.shape[0], -1)
         x = self.dropout(F.relu(self.fc1(x)))
         x = self.dropout(F.relu(self.fc2(x)))
         x = F.sigmoid(self.fc3(x))
