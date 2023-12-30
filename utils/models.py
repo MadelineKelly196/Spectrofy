@@ -17,7 +17,7 @@ class DanceabilityModel(nn.Module):
         x = self.pool(F.relu(self.conv1(x)))
         x = self.pool(F.relu(self.conv2(x)))
         x = x.flatten(start_dim=-3) #no reshape() to work also without batch dim
-        x = F.relu(self.fc1(self.dropout(x)))
-        x = F.relu(self.fc2(self.dropout(x)))
-        x = F.sigmoid(self.fc3(self.dropout(x)))
+        x = self.dropout(F.relu(self.fc1(x)))
+        x = self.dropout(F.relu(self.fc2(x)))
+        x = F.sigmoid(self.fc3(x))
         return x.squeeze(dim=-1)
