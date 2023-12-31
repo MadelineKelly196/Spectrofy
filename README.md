@@ -96,4 +96,4 @@ When you're ready to work on the next feature, go back to the "When creating a n
 
 1. Install with eg. `sudo apt install git-lfs` or see instructions for your system on [website](https://git-lfs.com/)
 2. Set it up with `git lfs install` (to download LFS files when cloning) or with `git lfs install --skip-smudge` (to not download them)
-3. That's it. PNG were already added to `.gitattributes` with `git lfs track "*.png"` (just push them as usual) and MP3 were ignored to save storage space
+3. That's it. PNG and PTH were already added to `.gitattributes` (with eg. `git lfs track "*.png"`). Just push them as usual. MP3 were ignored to save storage space
