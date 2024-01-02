@@ -20,7 +20,7 @@ def audio_to_spec(path_or_file):
 
     #preprocess it
     fig, ax = plt.subplots(figsize=(4.32, 2.88)) #432x288 as GTZAN dataset
-    librosa.display.specshow(S_dB, sr=sr, ax=ax)
+    librosa.display.specshow(S_dB, sr=sr, ax=ax) #TODO remove white borders and recreate dataset
     buffer, size = fig.canvas.print_to_buffer() #it's RGBA
     plt.close(fig) #to save memory
     with Image.frombuffer('RGBA', size, buffer) as spec:
