@@ -161,3 +161,4 @@ cython_debug/
 
 # Additional files
 *.mp3
+.neptune/
