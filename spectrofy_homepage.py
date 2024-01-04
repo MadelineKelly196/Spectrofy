@@ -3,6 +3,7 @@ import torch
 import os
 from utils.preprocessing import *
 from utils.models import *
+from utils.postprocessing import *
 
 st.set_page_config(
     page_title="spectrofy_home",
@@ -49,7 +50,14 @@ with st.container():
 # Add radio buttons for analysis selection
 analysis_option = st.radio("Select analysis option:", ("Danceability", "Genre"))
 
-# Upload button
+#initialize and unpack the dance model
+#put here so that it doesn't need to be redone for each uploaded file
+dance_model = DanceabilityModel()
+param_path = os.path.join('utils', 'model_params', 'danceability.pth')
+dance_model.load_state_dict(torch.load(param_path, map_location='cpu'))
+dance_model.eval() #disable training mode
+
+# Song uploader
 #allowed_types = ['aiff', 'au', 'avr', 'caf', 'flac', 'htk', 'svx', 'mat4', 'mat5', 'mpc2k', 'mp3', 'ogg', 'paf', 'pvf', 'raw', 'rf64', 'sd2', 'sds', 'ircam', 'voc', 'w64', 'wav', 'nist', 'wavex', 'wve', 'xi'] 
 allowed_types = ['mp3', 'wav']
 uploaded_files = st.file_uploader("Upload your songs and analyze them with one click", type=allowed_types, accept_multiple_files=True)
@@ -59,29 +67,28 @@ if uploaded_files is not None:
         #convert to spectrogram for ML model
         try:
             spec = audio_to_spec(uploaded_file)
+            spec = transform(spec)
         except AssertionError as e:
             st.write(f'Audio cannot be shorter than {e.args[0]} s')
 
-        try:
-            spec = transform(spec)
-        except AssertionError as e:
-            st.write(f'Spectrogram could not be converted to transform')
-
-        # Process the uploaded file
+        # If selected, determine song danceability
         if analysis_option == "Danceability":
             try:
-                model = DanceabilityModel()
-                param_path = os.path.join('utils', 'model_params', 'danceability.pth')
-                #TODO: UnpicklingError: invalid load key, 'v'.
-                model.load_state_dict(torch.load(param_path, map_location='cpu'))
-                model.eval() #disable training mode
-                danceability = model(spec).item()
-                st.success(f"Your song {uploaded_file.name} has a Danceability level of: {danceability}")
+                with st.spinner('Evaluating your song...'):
+                    #evaluate input song
+                    danceability = dance_model(spec).item()
+                    dance_val = round(danceability, 2)
+                    dance_range = categorize_dance(dance_val)
+#                    status.update(label="Evaluation complete!", state="complete")
+                st.success(f"Your song {uploaded_file.name} has a {dance_range} level of Danceability. From 0 to 1, with 1 being the highest, your song got a score of: {dance_val}")
                 #st.success(f"Your song {uploaded_file.name} has a Danceability level of: over 9000💃🏼")
-            except AssertionError as e:
-                st.write(f'Could not determine danceability.')
+            except:
+                st.write(f'Could not determine danceability. :(')
         
+        # If selected, determine song genre
         elif analysis_option == "Genre":
             st.success(f"Your song {uploaded_file.name} belongs to the genre: Rock 🎸")
             # Perform genre analysis
             # Your code here
+
+
