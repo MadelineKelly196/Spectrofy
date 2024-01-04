@@ -97,3 +97,4 @@ When you're ready to work on the next feature, go back to the "When creating a n
 1. Install with eg. `sudo apt install git-lfs` or see instructions for your system on [website](https://git-lfs.com/)
 2. Set it up with `git lfs install` (to download LFS files when cloning) or with `git lfs install --skip-smudge` (to not download them)
 3. That's it. PNG and PTH were already added to `.gitattributes` (with eg. `git lfs track "*.png"`). Just push them as usual. MP3 were ignored to save storage space
+    * But note that an exception was made (in `.gitattributes`) for `danceability.pth` (to bypass the monthly bandwidth limit) so it is not tracked
