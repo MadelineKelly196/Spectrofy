@@ -1,9 +1,7 @@
 def categorize_dance(value):
-    if 0 <= value < 0.25:
+    if 0 <= value < 0.4:
         return "Low"
-    elif 0.25 <= value < 0.5:
-        return "Medium"
-    elif 0.5 <= value < 0.75:
-        return "High"
+    elif 0.4 <= value < 0.8:
+        return "Moderate"
     else:
-        return "Very High"
+        return "High"
